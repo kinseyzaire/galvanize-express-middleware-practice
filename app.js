@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
+var bouncer = require('./lib/bouncer');
 var articles = require('./routes/articles');
 var products = require('./routes/products');
 
@@ -34,8 +35,14 @@ app.use(setUserNameLocal)
 
 app.use('/', routes);
 app.use('/', auth);
+
+
 app.use('/users', users);
+
+app.use('/articles', bouncer.bouncer);
 app.use('/articles', articles);
+
+app.use('/products', bouncer.bouncer);
 app.use('/products', products);
 
 // catch 404 and forward to error handler

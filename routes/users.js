@@ -1,5 +1,14 @@
 var express = require('express');
+var bouncer = require('../lib/bouncer');
 var router = express.Router();
+
+
+router.get('/:user/profile', function(req, res, next) {
+  res.render('users/profile', {profileUser: req.params.user})
+});
+
+router.get('/', bouncer.bouncer);
+router.get('/', bouncer.userchecker);
 
 router.get('/', function(req, res, next) {
   res.render('users/index')
@@ -13,8 +22,5 @@ router.get('/:someUser/edit', function(req, res, next) {
   res.render('users/edit', {user: req.params.someUser})
 });
 
-router.get('/:user/profile', function(req, res, next) {
-  res.render('users/profile', {profileUser: req.params.user})
-});
 
 module.exports = router;
