@@ -32,6 +32,10 @@ var setUserNameLocal = function (req, res, next) {
 }
 
 app.use(setUserNameLocal)
+app.use(function (req, res, next) {
+  res.locals.user = req.user
+  next()
+})
 
 app.use('/', routes);
 app.use('/', auth);
